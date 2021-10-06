@@ -55,8 +55,7 @@ export default {
     return {
       isCollapse: false,
       isFullScreen: false,
-      avatar: require('../../../../public/img/f778738c-e4f8-4870-b634-56703b4acafe.gif'),
-      isif: true
+      avatar: require('../../../../public/img/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     }
   },
   methods: {
@@ -65,14 +64,15 @@ export default {
       this.$store.commit('shrink', this.isCollapse)
     },
     fullscreen () {
-      this.isFullScreen = !this.isFullScreen
       const docElm = document.documentElement
       if (!document.fullscreenElement) {
         docElm.requestFullscreen()
-        console.log(!document.fullscreenElement)
+        this.isFullScreen = true
+        // console.log(!document.fullscreenElement)
       } else {
         document.exitFullscreen()
-        console.log(!document.fullscreenElement)
+        this.isFullScreen = false
+        // console.log(!document.fullscreenElement)
       }
     }
   },
