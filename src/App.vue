@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import { getCookie } from './utils/auth'
+
 export default {
   watch: {
     $route (to, from) {
       if (to.meta.Authority) {
-        if (this.$store.state.user.admin !== '') {
+        if (getCookie('Admin-Token')) {
           this.$router.push(this.$route)
         } else {
           this.$router.replace('/login')

@@ -35,6 +35,9 @@
 </template>
 
 <script>
+import { login } from '../../api/user'
+import { setCookie } from '@/utils/auth'
+
 export default {
   data () {
     // 账号
@@ -65,11 +68,19 @@ export default {
     }
   },
   methods: {
+    // 提交登录
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$store.dispatch('login', this.ruleForm)
-          this.$router.push('/home')
+          login(this.ruleForm).then(res => {
+            if (res.status === 200) {
+              setCookie('Admin-Token', res.token)
+              this.$store.dispatch('login', this.ruleForm)
+              this.$router.push('/home')
+            } else {
+              console.log('登录失败')
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
