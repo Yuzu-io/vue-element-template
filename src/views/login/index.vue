@@ -75,10 +75,21 @@ export default {
           login(this.ruleForm).then(res => {
             if (res.status === 200) {
               setCookie('Admin-Token', res.token)
+              this.$message({
+                showClose: true,
+                message: '登录成功!',
+                type: 'success',
+                duration: 2000
+              })
               this.$store.dispatch('login', this.ruleForm)
               this.$router.push('/home')
             } else {
-              console.log('登录失败')
+              this.$message.error({
+                showClose: true,
+                message: '账号或密码错误!',
+                type: 'error',
+                duration: 2000
+              })
             }
           })
         } else {
